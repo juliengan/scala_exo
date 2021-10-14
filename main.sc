@@ -1,35 +1,37 @@
-sealed trait Vehicle(s:String)
-{
-  var name = ""
-}
-object Vehicle
-{
-  def apply(name: String): Vehicle = {
-        var p = new Vehicle
-        p.name = name
-      
+sealed trait Vehicle {}
+
+class Car(s: String) extends Vehicle {
+  val Immatriculation = ""
+
+  def debugVars(): Any = {
+    val vars = this.getClass.getDeclaredFields
+    for (v <- vars) {
+      v.setAccessible(true)
+      println("Field: " + v.getName() + " => " + v.get(this))
+    }
+  }
+  def display() = {
+    println("name: " + s);
+
   }
 }
-class Car extends Vehicle
-{
-  var name = ""  
-}
-class Motobike extends Vehicle{}
-class Boat extends Vehicle{}
+class Motobike extends Vehicle {}
+class Boat extends Vehicle {}
 
-object Main
-{
-      
-    // Driver code
-    def main(args: Array[String]) =
-    {
-          
-        // Creating object of the derived class
-        val v = new Vehicle("Tesla");
-        val car = new Car();
-        val motobike = new Motobike();
-        
-        v.name;
-    }
+
+
+object Main {
+
+  def main(args: Array[String]) = {
+
+    val car: Car = new Car("Zoé");
+
+    val motobike = new Motobike();
+    val yacht = new Boat()
+
+   
+    car.debugVars()
+    car.display()
+  }
 }
 
